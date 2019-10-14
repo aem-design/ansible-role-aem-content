@@ -36,7 +36,7 @@
     permissions='{{ item.permissions }}'
   with_items: "{{ aem_content_list }}"
   when:
-    - aem_content_action is aem_content_action_set_permission
+    - aem_content_action in aem_content_action_set_permission
   tags:
     - set_permissions
 
@@ -49,6 +49,6 @@
     property_value='{{ item.property_value }}'
   with_items: "{{ aem_content_list }}"
   when:
-    - aem_content_action is aem_content_action_set_property
+    - aem_content_action in aem_content_action_set_property
   tags:
     - set_property
