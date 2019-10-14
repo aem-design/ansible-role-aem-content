@@ -1,0 +1,35 @@
+---
+
+- name: set facts
+  set_fact:
+    role_comment: "( {{ docker_container_name | default('aem') }} )"
+  tags:
+    - aem-content
+
+- name: process role with parameters parameters {{ role_comment }}
+  debug:
+    msg:
+      - "aem_port: {{ aem_port }}"
+      - "aem_host: {{ aem_host }}"
+      - aem_content_list: {{ aem_content_list }}
+  tags:
+    - always
+
+- name: fail if aem host info is not set {{ role_comment }}
+  fail:
+    msg: License Name and Key not provided
+  when:
+    - not aem_port
+    - not aem_host
+  tags:
+    - always
+
+- name: import set permissions
+    import_tasks: set-permission.yaml
+    when:
+      - aem_content_action is aem_content_action_set_permission
+
+- name: import set property
+    import_tasks: set-property.yaml
+    when:
+      - aem_content_action is aem_content_action_set_property

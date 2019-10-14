@@ -1,0 +1,17 @@
+---
+# vars file for .
+
+aem_port: "4502"                                                          # aem service port
+aem_host: "localhost"                                                     # aem service host
+aem_username: "admin"
+aem_password: "admin"
+
+wait_delay: 1                                                             # how long to wait between retries
+wait_timeout: 300                                                         # how long to wait before terminating
+wait_retries: 360                                                         # how many times to retry waiting
+
+aem_content_action_set_permission: "set_permission"
+aem_content_action_set_property: "set_property"
+
+aem_content_action: ""                                                    # set Content Action to perform
+aem_content_list: {}                                                      # content list to run action with

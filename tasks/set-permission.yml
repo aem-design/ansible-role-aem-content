@@ -1,0 +1,12 @@
+---
+
+- name: set aem permissions
+  aem_set_permission: >
+    host={{ aem_host }}
+    port={{ aem_port }}
+    user_or_group_name='{{ item.user_or_group_name }}'
+    path='{{ item.path }}'
+    permissions='{{ item.permissions }}'
+  with_items: {{ aem_content_list }}
+  tags:
+    - set_permissions

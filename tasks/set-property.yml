@@ -1,0 +1,10 @@
+---
+
+- name: set aem permissions
+  aem_set_property: >
+    host={{ aem_host }}
+    port={{ aem_port }}
+    path='{{ item.path }}'
+    property_name='{{ item.property_name }}'
+    property_value='{{ item.property_value }}'
+  with_items: {{ content_property }}
