@@ -34,6 +34,8 @@
     user_or_group_name='{{ item.user_or_group_name }}'
     path='{{ item.path }}'
     permissions='{{ item.permissions }}'
+    aem_username='{{ aem_username }}'
+    aem_password='{{ aem_password }}'
   with_items: "{{ aem_content_list }}"
   when:
     - aem_content_action in aem_content_action_set_permission
@@ -47,6 +49,8 @@
     path='{{ item.path }}'
     property_name='{{ item.property_name }}'
     property_value='{{ item.property_value }}'
+    aem_username='{{ aem_username }}'
+    aem_password='{{ aem_password }}'
   with_items: "{{ aem_content_list }}"
   when:
     - aem_content_action in aem_content_action_set_property
