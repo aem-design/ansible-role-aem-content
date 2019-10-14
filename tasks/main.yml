@@ -25,11 +25,15 @@
     - always
 
 - name: import set permissions
-    import_tasks: set-permission.yaml
-    when:
-      - aem_content_action is aem_content_action_set_permission
+  import_tasks: set-permission.yaml
+  when:
+    - aem_content_action is aem_content_action_set_permission
+  tags:
+    - set_permissions
 
 - name: import set property
-    import_tasks: set-property.yaml
-    when:
-      - aem_content_action is aem_content_action_set_property
+  import_tasks: set-property.yaml
+  when:
+    - aem_content_action is aem_content_action_set_property
+  tags:
+    - set_property

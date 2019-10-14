@@ -1,6 +1,6 @@
 ---
 
-- name: set aem permissions
+- name: set path permissions
   aem_set_permission: >
     host={{ aem_host }}
     port={{ aem_port }}
