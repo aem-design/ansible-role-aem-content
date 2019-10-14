@@ -11,6 +11,8 @@
     msg:
       - "aem_port: {{ aem_port }}"
       - "aem_host: {{ aem_host }}"
+      - "aem_username: {{ aem_username }}"
+      - "aem_password: {{ aem_password }}"
       - "aem_content_action: {{ aem_content_action }}"
       - "aem_content_list: {{ aem_content_list }}"
   tags:
@@ -22,6 +24,8 @@
   when:
     - not aem_port
     - not aem_host
+    - not aem_username
+    - not aem_password
     - not aem_content_action
     - not aem_content_list
   tags:
