@@ -11,16 +11,19 @@
     msg:
       - "aem_port: {{ aem_port }}"
       - "aem_host: {{ aem_host }}"
+      - "aem_content_action: {{ aem_content_action }}"
       - aem_content_list: {{ aem_content_list }}
   tags:
     - always
 
 - name: fail if aem host info is not set {{ role_comment }}
   fail:
-    msg: License Name and Key not provided
+    msg: AEM Host, Port, Content Action or Content List not provided
   when:
     - not aem_port
     - not aem_host
+    - not aem_content_action
+    - not aem_content_list
   tags:
     - always
 
