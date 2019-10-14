@@ -44,10 +44,10 @@
       include_role:
         name: "{{ role_name }}"
       vars:
-        aem_port: "{{ test_aem_port }}",
-        aem_host: "{{ dockerhost_ip.stdout }}",
-        aem_username: "{{ test_aem_username }}",
-        aem_password: "{{ test_aem_password }}",
+        aem_port: "{{ test_aem_port }}"
+        aem_host: "{{ dockerhost_ip.stdout }}"
+        aem_username: "{{ test_aem_username }}"
+        aem_password: "{{ test_aem_password }}"
         aem_content_action: "set_permission"
         aem_content_list: [
           {
@@ -61,10 +61,10 @@
       include_role:
         name: "{{ role_name }}"
       vars:
-        aem_port: "{{ test_aem_port }}",
-        aem_host: "{{ dockerhost_ip.stdout }}",
-        aem_username: "{{ test_aem_username }}",
-        aem_password: "{{ test_aem_password }}",
+        aem_port: "{{ test_aem_port }}"
+        aem_host: "{{ dockerhost_ip.stdout }}"
+        aem_username: "{{ test_aem_username }}"
+        aem_password: "{{ test_aem_password }}"
         aem_content_action: "set_property"
         aem_content_list: [
           {
