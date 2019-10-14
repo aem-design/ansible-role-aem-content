@@ -27,15 +27,27 @@
   tags:
     - always
 
-- name: import set permissions
-  import_tasks: set-permission.yaml
+- name: set path permissions
+  aem_set_permission: >
+    host={{ aem_host }}
+    port={{ aem_port }}
+    user_or_group_name='{{ item.user_or_group_name }}'
+    path='{{ item.path }}'
+    permissions='{{ item.permissions }}'
+  with_items: {{ aem_content_list }}
   when:
     - aem_content_action is aem_content_action_set_permission
   tags:
     - set_permissions
 
-- name: import set property
-  import_tasks: set-property.yaml
+- name: set path property
+  aem_set_property: >
+    host={{ aem_host }}
+    port={{ aem_port }}
+    path='{{ item.path }}'
+    property_name='{{ item.property_name }}'
+    property_value='{{ item.property_value }}'
+  with_items: {{ aem_content_list }}
   when:
     - aem_content_action is aem_content_action_set_property
   tags:
