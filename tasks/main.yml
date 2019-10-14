@@ -12,7 +12,7 @@
       - "aem_port: {{ aem_port }}"
       - "aem_host: {{ aem_host }}"
       - "aem_content_action: {{ aem_content_action }}"
-      - aem_content_list: {{ aem_content_list }}
+      - "aem_content_list: {{ aem_content_list }}"
   tags:
     - always
 
