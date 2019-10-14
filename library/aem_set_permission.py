@@ -1,20 +1,22 @@
 #!/usr/bin/python
 
-import os
-import pyaem
-import commands
-import json
+from ansible.module_utils.basic import *
 
-def main ():
-    module = AnsibleModule(
-        argument_spec = dict(
-            host = dict(required=True),
-            port = dict(required=True),
-            user_or_group_name = dict(required=True),
-            path = dict(required=True),
-            permissions = dict(required=True)
-        )
-    )
+import pyaem2
+
+
+def main():
+    fields = {
+        "host": {"required": True, "type": "str"},
+        "port": {"required": True, "type": "str"},
+        "user_or_group_name": {"required": True, "type": "str"},
+        "path": {"required": True, "type": "str"},
+        "permissions": {"required": True, "type": "str"},
+        "aem_username": {"required": True, "type": "str"},
+        "aem_password": {"required": True, "type": "str", "no_log": True}
+    }
+
+    module = AnsibleModule(argument_spec=fields)
 
     host = module.params['host']
     port = module.params['port']
@@ -22,17 +24,32 @@ def main ():
     path = module.params['path']
     permissions = module.params['permissions']
 
-    aem_username = os.getenv('crx_username')
-    aem_password = os.getenv('crx_password')
+    aem_username = module.params['aem_username']
+    aem_password = module.params['aem_password']
 
-    aem = pyaem.PyAem(aem_username, aem_password, host, port)
+    try:
+        aem = pyaem2.PyAem2(aem_username, aem_password, host, port)
 
-    result = aem.set_permission(user_or_group_name, path, permissions)
+        result = aem.set_permission(user_or_group_name, path, permissions)
 
-    if result.is_failure():
-        print(json.dumps({ 'failed': True, 'msg': result.message }))
-    else:
-        print(json.dumps({ 'msg': result.message }))
+        module.exit_json(
+            failed=False,
+            changed='set on path' in result.message,
+            msg=result.message
+        )
 
-from ansible.module_utils.basic import *
-main()
+    except pyaem2.PyAem2Exception as err:
+        module.fail_json(
+            failed=True,
+            changed=False,
+            host=host,
+            port=port,
+            username=aem_username,
+            password=aem_password,
+            msg=str(err),
+            installed=False
+        )
+
+
+if __name__ == '__main__':
+    main()
