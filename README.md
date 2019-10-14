@@ -46,13 +46,35 @@ None.
 
 ```yaml
 - hosts: all
-  roles:
-    - { role: aem_design.aem_license,
-      aem_license_key: "your key",
-      aem_license_name: "your company",
-      aem_port: "4502",
-      aem_host: "localhost",
-    }
+  tasks:
+    - name: set permissions
+      include_role:
+        name: "{{ role_name }}"
+      vars:
+        aem_port: "{{ test_aem_port }}"
+        aem_host: "{{ dockerhost_ip.stdout }}"
+        aem_content_action: "set_permission"
+        aem_content_list:
+          - {
+            user_or_group_name: 'everyone',
+            path: '/libs/granite/dispatcher/content/vanityUrls',
+            permissions: 'read:true'
+          }
+        debug_hide: false
+    - name: set property
+      include_role:
+        name: "{{ role_name }}"
+      vars:
+        aem_port: "{{ test_aem_port }}"
+        aem_host: "{{ dockerhost_ip.stdout }}"
+        aem_content_action: "set_property"
+        aem_content_list:
+          - {
+            path: '/libs/granite/dispatcher/content/vanityUrls',
+            property_name: 'test',
+            property_value: "{{ test_aem_property_content }}"
+          }
+        debug_hide: false
 ```
 
 ## License
