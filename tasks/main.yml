@@ -34,7 +34,7 @@
     user_or_group_name='{{ item.user_or_group_name }}'
     path='{{ item.path }}'
     permissions='{{ item.permissions }}'
-  with_items: {{ aem_content_list }}
+  with_items: "{{ aem_content_list }}"
   when:
     - aem_content_action is aem_content_action_set_permission
   tags:
@@ -47,7 +47,7 @@
     path='{{ item.path }}'
     property_name='{{ item.property_name }}'
     property_value='{{ item.property_value }}'
-  with_items: {{ aem_content_list }}
+  with_items: "{{ aem_content_list }}"
   when:
     - aem_content_action is aem_content_action_set_property
   tags:
