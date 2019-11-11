@@ -75,6 +75,23 @@
           }
         ]
         debug_hide: false
+    - name: update replication agent to point docker container to its host
+      include_role:
+        name: "{{ role_name }}"
+      vars:
+        aem_port: "{{ test_aem_port }}"
+        aem_host: "{{ dockerhost_ip.stdout }}"
+        aem_username: "{{ test_aem_username }}"
+        aem_password: "{{ test_aem_password }}"
+        aem_content_action: "set_property"
+        aem_content_list: [
+          {
+            path: '/etc/replication/agents.author/publish/jcr:content',
+            property_name: 'transportUri',
+            property_value: "http://172.17.0.1:4503/bin/receive?sling:authRequestLogin=1"
+          }
+        ]
+        debug_hide: false
 
   post_tasks:
     - name: check property content {{ role_comment }}
